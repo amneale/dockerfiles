@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:8.0-fpm-alpine
 
 RUN apk add --update icu-dev \
     && docker-php-ext-install opcache pdo_mysql bcmath intl \
