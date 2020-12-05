@@ -1,12 +1,3 @@
-FROM amneale/php-fpm
+FROM amneale/php-fpm:7.4
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
-
-RUN composer global require hirak/prestissimo \
-    --prefer-dist \
-    --prefer-stable \
-    --no-progress \
-    --no-scripts \
-    --no-suggest \
-    --no-interaction \
-    --ansi
