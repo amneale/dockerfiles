@@ -1,0 +1,33 @@
+name: push
+
+on:
+  push:
+    branches: master
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        repository:
+          - ci-runner
+          - php-fpm
+          - composer
+          - php-ci-runner
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: ${{ matrix.repository }}/Dockerfile
+          tags: amneale/${{ matrix.repository }}:latest
