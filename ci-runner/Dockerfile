@@ -1,3 +1,3 @@
-FROM tmaier/docker-compose
+FROM docker
 
-RUN apk add --no-cache make
+RUN apk add --no-cache docker-compose make
