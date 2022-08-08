@@ -1,10 +1,5 @@
-.PHONY: php-nginx-unit
+build-%:
+	docker build --tag amneale/$*:latest ./$*
 
-php-nginx-unit: TARGET=php-nginx-unit
-php-nginx-unit: build push
-
-build:
-	docker build --tag amneale/$(TARGET):latest ./$(TARGET)
-
-push:
-	docker push amneale/$(TARGET):latest
+push-%: build-%
+	docker push amneale/$*:latest
